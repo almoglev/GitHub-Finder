@@ -4,7 +4,7 @@ This is a hands-on project I developed while self-learning the course [React Fro
 GitHub Finder is a web application to search GitHub users and display their info.
 
 Tech Stack:
-- React 
+- React, 
   including:
   - Props
   - State
