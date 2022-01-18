@@ -10,25 +10,54 @@ export const GitHubProvider = ({children}) => {
 
     const initialState = {
         users: [],
-        loading: false
+        loading: false,
+        isNoResult: false,
     }
 
     const [state, dispatch] = useReducer(GitHubReducer, initialState);
 
-    // get initial users - just for testing purposes
-    const fetchUsers = async () => {
-        setLoading()
-        const response = await fetch(`${GITHUB_URL}/users`, {
-            headers: {
-                Authorization: `token ${GITHUB_TOKEN}`
-            }
-        });
+    // Get initial users - just for testing purposes
+    // const fetchUsers = async () => {
+    //     setLoading()
+    //     const response = await fetch(`${GITHUB_URL}/users`, {
+    //         headers: {
+    //             Authorization: `token ${GITHUB_TOKEN}`
+    //         }
+    //     });
 
-        const data = await response.json();
+    //     const data = await response.json();
+    //     dispatch({
+    //         type: 'GET_USERS',
+    //         payload: data,
+    //     })
+    // }
+
+    // Search users
+    const searchUsers = async (text) => {
+        setLoading()
+        const params =  new URLSearchParams({
+            q: text,
+        })
+
+        const response =  await fetch(`${GITHUB_URL}/search/users?${params}`, {
+                                    headers: {
+                                        Authorization: `token ${GITHUB_TOKEN}`
+                                    }
+                                });
+
+        // {items} is from the response
+        const {items} = await response.json();
+
         dispatch({
             type: 'GET_USERS',
-            payload: data,
+            payload: items,
         })
+
+        if (items.length === 0){
+            dispatch({
+                type: 'NO_RESULT',
+            })
+        }
     }
 
     // Set loading spinner
@@ -37,7 +66,8 @@ export const GitHubProvider = ({children}) => {
     return <GitHubContext.Provider value={{
         users: state.users,
         loading: state.loading,
-        fetchUsers,
+        isNoResult: state.isNoResult,
+        searchUsers,
     }}>
         {children}
     </GitHubContext.Provider>

@@ -3,17 +3,19 @@ import GitHubContext from '../../context/github/GitHubContext';
 
 function UserSearchBar() {
     const [text, setText] = useState('')
-    const {users} = useContext(GitHubContext)
+    const {users,searchUsers} = useContext(GitHubContext)
 
     const handleChange = (e) => setText(e.target.value);
 
     const handleSubmit = (e) => {
         // because it's a form submit we have to do e.preventDefault()
         e.preventDefault()
+        
         if (text === '') {
             alert('Please enter something')
         } else {
             // @todo- search users
+            searchUsers(text)
             setText('')
         }
     }

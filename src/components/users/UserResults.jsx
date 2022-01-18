@@ -4,7 +4,7 @@ import UserItem from './UserItem';
 import GitHubContext from '../../context/github/GitHubContext';
 
 function UserResults() {
-    const {users, loading} = useContext(GitHubContext)
+    const {users, loading, isNoResult} = useContext(GitHubContext)
 
     if (loading) {
         return( 
@@ -12,8 +12,13 @@ function UserResults() {
                 <SpinnerSVG />
             </div>
         )
-    }
-    else {
+    } else if (isNoResult) {
+        return (
+            <div className='w-full pr-40 input input-lg text-gray'>
+                Sorry, no results.
+            </div>
+        )
+    } else {
         return(     
             // these class names make it responsive (xl, large and medium screens)       
             <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
@@ -22,7 +27,6 @@ function UserResults() {
                 ))}
             </div>
         )
-
     }
 }
 
