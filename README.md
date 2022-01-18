@@ -13,6 +13,7 @@ Tech Stack:
   - Hooks
   - Reducers
   - Routes
+  - Context API
 - Styling with Tailwind & Daisy UI
 - GitHub API
 - HTTP Requests
