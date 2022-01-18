@@ -3,14 +3,14 @@ import GitHubContext from '../../context/github/GitHubContext';
 
 function UserSearchBar() {
     const [text, setText] = useState('')
-    const {users,searchUsers} = useContext(GitHubContext)
+    const {users,searchUsers, clearUsers} = useContext(GitHubContext)
 
     const handleChange = (e) => setText(e.target.value);
 
     const handleSubmit = (e) => {
         // because it's a form submit we have to do e.preventDefault()
         e.preventDefault()
-        
+
         if (text === '') {
             alert('Please enter something')
         } else {
@@ -43,7 +43,7 @@ function UserSearchBar() {
 
             { (users.length > 0) && (
                 <div>
-                    <button className="btn btn-ghost btn-lg">Clear</button>
+                    <button className="btn btn-ghost btn-lg" onClick={clearUsers}>Clear</button>
                 </div>
             )}
             

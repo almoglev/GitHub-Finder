@@ -60,6 +60,13 @@ export const GitHubProvider = ({children}) => {
         }
     }
 
+    // clear users
+    const clearUsers = async () => {
+        dispatch({
+            type: 'CLEAR_USERS',
+        })
+    }
+
     // Set loading spinner
     const setLoading = () => dispatch({type: 'SET_LOADING'});
 
@@ -68,6 +75,7 @@ export const GitHubProvider = ({children}) => {
         loading: state.loading,
         isNoResult: state.isNoResult,
         searchUsers,
+        clearUsers,
     }}>
         {children}
     </GitHubContext.Provider>

@@ -8,15 +8,21 @@ const GitHubReducer = (state, action) => {
                 isNoResult: false,
             }
         case 'SET_LOADING':
-            return{
+            return {
                 ...state,
                 loading: true,
             }
         case 'NO_RESULT':
-            return{
+            return {
                 ...state,
                 isNoResult: true,
             }
+        case 'CLEAR_USERS':
+            return {
+                ...state,
+                users: [],
+            }
+
         default: 
             return state
     }
