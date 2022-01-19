@@ -4,13 +4,15 @@ import {useParams} from 'react-router-dom';
 import {FaCode, FaStore, FaUserFriends, FaUsers} from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import {ReactComponent as SpinnerSVG} from '../assets/spinner.svg';
+import RepoList from '../components/repos/RepoList';
 
 function User() {
-    const { user, getUser, loading } = useContext(GitHubContext)
+    const { user, getUser, loading, repos, getUserRepos, } = useContext(GitHubContext)
     const params = useParams();
 
     useEffect(() => {
         getUser(params.login)
+        getUserRepos(params.login)
     }, [])
 
     const {
@@ -119,14 +121,14 @@ function User() {
                     </div>
         
                     <div className='stat'>
-                            <div className='stat-figure text-secondary'>
-                                <FaStore className='text-3xl md:text-5xl' />
-                            </div>
-                            <div className='stat-title pr-5'>Public Gists</div>
-                            <div className='stat-value pr-5 text-3xl md:text-4xl'>{public_gists}</div>
+                        <div className='stat-figure text-secondary'>
+                            <FaStore className='text-3xl md:text-5xl' />
+                        </div>
+                        <div className='stat-title pr-5'>Public Gists</div>
+                        <div className='stat-value pr-5 text-3xl md:text-4xl'>{public_gists}</div>
                     </div>
-
                 </div>
+                <RepoList repos={repos}/>
             </div>
         </>
     )
