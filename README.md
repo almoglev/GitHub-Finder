@@ -4,7 +4,7 @@ GitHub Finder is a web application to search GitHub users and display their info
 It's a hands-on project I developed while self-learning the course [React Front To Back 2022](https://www.udemy.com/course/react-front-to-back-2022/) by Brad Traversy on Udemy.<br />
 The application uses the Context API along with the useContext and useReducer hooks for state management.
 
-👉 [Click here]() for live demo!
+👉 [Click here](https://github-finder-seven-ashen.vercel.app/) for live demo!
 
 Tech Stack:
 - React, 
