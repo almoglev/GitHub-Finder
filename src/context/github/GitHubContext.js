@@ -10,27 +10,12 @@ export const GitHubProvider = ({children}) => {
 
     const initialState = {
         users: [],
+        user: {},
         loading: false,
         isNoResult: false,
     }
 
     const [state, dispatch] = useReducer(GitHubReducer, initialState);
-
-    // Get initial users - just for testing purposes
-    // const fetchUsers = async () => {
-    //     setLoading()
-    //     const response = await fetch(`${GITHUB_URL}/users`, {
-    //         headers: {
-    //             Authorization: `token ${GITHUB_TOKEN}`
-    //         }
-    //     });
-
-    //     const data = await response.json();
-    //     dispatch({
-    //         type: 'GET_USERS',
-    //         payload: data,
-    //     })
-    // }
 
     // Search users
     const searchUsers = async (text) => {
@@ -67,15 +52,47 @@ export const GitHubProvider = ({children}) => {
         })
     }
 
+    // Get a single user by username (=login)
+    const getUser = async (login) => {
+        setLoading()
+
+        const response =  await fetch(`${GITHUB_URL}/users/${login}`, {
+                                    headers: {
+                                        Authorization: `token ${GITHUB_TOKEN}`
+                                    }
+                                });
+
+        if (response.status === 404) {
+            window.location = '/notfound'
+        } else {
+            // {items} is from the response
+            const data = await response.json();
+
+            dispatch({
+                type: 'GET_USER',
+                payload: data,
+            })
+
+            if (data.length === 0){
+                dispatch({
+                    type: 'NO_RESULT',
+                })
+            }
+        }
+    }
+
+
     // Set loading spinner
     const setLoading = () => dispatch({type: 'SET_LOADING'});
 
     return <GitHubContext.Provider value={{
         users: state.users,
+        user: state.user,
         loading: state.loading,
         isNoResult: state.isNoResult,
         searchUsers,
         clearUsers,
+        getUser,
     }}>
         {children}
     </GitHubContext.Provider>

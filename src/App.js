@@ -2,11 +2,13 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import NotFound from './pages/NotFound';
+import User from './pages/User';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Alert from './components/layout/Alert';
 import {GitHubProvider} from './context/github/GitHubContext'
 import {AlertProvider} from './context/alert/AlertContext'
+
 
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
               <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path='/about' element={<About />} />
+                <Route path='/user/:login' element={<User />} />
                 <Route path='/notfound' element={<NotFound />} />
                 <Route path='/*' element={<NotFound />} />
               </Routes>
