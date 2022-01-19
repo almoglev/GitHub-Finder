@@ -6,7 +6,7 @@ function About() {
                 GitHub Finder is a web application to search GitHub users and display their info. <br />
                 It's a hands-on project I developed while self-learning the course 
                 <strong>
-                    <a href='https://www.udemy.com/course/react-front-to-back-2022' target="_blank">
+                    <a href='https://www.udemy.com/course/react-front-to-back-2022' target="_blank" rel='noreferrer'>
                     {' '}
                     React Front To Back
                     </a>{' '}
